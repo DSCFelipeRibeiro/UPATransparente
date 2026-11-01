@@ -2,7 +2,7 @@
 
 Aplicação web do projeto integrador da UNIVESP para transparência do fluxo de atendimento em UPAs.
 
-Este repositório publica somente o código-fonte da aplicação web mantida em `DEV/app` e os workflows de CI/CD. Não contém dados de pacientes, dumps de banco, configurações operacionais, segredos ou arquivos de produção.
+Este repositório publica o código-fonte da aplicação web em `DEV/app`, o schema acadêmico em `DEV/mariaDB` e os workflows de CI/CD. Não contém registros de atendimento, dumps de banco, configurações operacionais, segredos ou arquivos de produção.
 
 ## Fluxo de mudanças
 
@@ -11,3 +11,8 @@ Este repositório publica somente o código-fonte da aplicação web mantida em 
 - PROD é publicado manualmente a partir de `main`, com aprovação do ambiente `production` e uma referência não sensível do backup verificado.
 
 Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para o fluxo e a configuração dos ambientes do GitHub Actions.
+
+## Banco de desenvolvimento
+
+O schema acadêmico com as definições das nove tabelas está em [`DEV/mariaDB/create_tables.sql`](DEV/mariaDB/create_tables.sql). Ele contém apenas `CREATE TABLE` e deve ser aplicado em um banco de desenvolvimento vazio.
+

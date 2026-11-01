@@ -1,4 +1,4 @@
-# Public repository allowlist: web application source and GitHub workflows only.
+# Public repository allowlist: web application source, schema, and GitHub workflows only.
 *
 !/.gitignore
 !/README.md
@@ -9,6 +9,9 @@
 !/DEV/
 !/DEV/app/
 !/DEV/app/**
+!/DEV/mariaDB/
+!/DEV/mariaDB/README.md
+!/DEV/mariaDB/create_tables.sql
 
 # Never publish local configuration, credentials, compiled files, or runtime data.
 **/.env
