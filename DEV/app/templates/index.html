@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>UPA - Meu Atendimento</title>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #1a1a1a; padding: 15px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .header { background: #0056b3; color: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; text-align: center; }
+        .header h1 { font-size: 24px; }
+        .hora { font-size: 18px; margin-top: 10px; color: #b3d4ff; }
+        .staff-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 0 0 20px; }
+        .staff-links a { display: inline-block; padding: 12px 18px; border-radius: 9px; background: #fff; color: #064c91; font-weight: bold; text-decoration: none; }
+        .staff-links a:hover { background: #dceeff; }
+
+        /* CARD PESSOAL DO PACIENTE */
+        .card-paciente { background: #e3f2fd; color: #002752; padding: 20px; border-radius: 15px; margin-bottom: 25px; border-left: 8px solid #0056b3; }
+        .card-paciente h2 { font-size: 22px; margin-bottom: 10px; text-transform: uppercase; }
+        .card-paciente .info-linha { font-size: 16px; margin-bottom: 5px; }
+        .card-paciente strong { color: #0056b3; }
+        .destaque-posicao { font-size: 20px; font-weight: bold; background: #0056b3; color: white; padding: 2px 8px; border-radius: 5px; margin-left: 5px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .card { background: #2d2d2d; padding: 15px; border-radius: 12px; text-align: center; color: white; border-left: 6px solid; }
+        
+        .bolinha-risco { width: 25px; height: 25px; border-radius: 50%; margin: 0 auto 10px auto; box-shadow: 0 0 8px rgba(0,0,0,0.5); }
+        .bg-emergencia { background-color: #ff4444; } .bg-muito-urgente { background-color: #ff8800; }
+        .bg-urgente { background-color: #ffbb33; } .bg-pouco-urgente { background-color: #00C851; }
+        .bg-nao-urgente { background-color: #33b5e5; }
+
+        .card .titulo { font-size: 12px; text-transform: uppercase; margin-bottom: 5px; font-weight: bold; }
+        .card .numero { font-size: 32px; font-weight: bold; margin: 5px 0; }
+        .card .tempo { font-size: 14px; color: #aaa; }
+        
+        .emergencia { border-color: #ff4444; } .muito-urgente { border-color: #ff8800; }
+        .urgente { border-color: #ffbb33; } .pouco-urgente { border-color: #00C851; }
+        .nao-urgente { border-color: #33b5e5; }
+        
+        .setores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 15px 0; }
+        .setor-card { background: #2d2d2d; padding: 15px; border-radius: 10px; color: white; text-align: center; }
+        .setor-card .icone { font-size: 20px; }
+        .setor-card .setor { font-size: 12px; color: #aaa; margin: 5px 0; font-weight: bold; }
+        .setor-card .qtd { font-size: 26px; font-weight: bold; }
+        .setor-card .min { font-size: 14px; color: #4CAF50; }
+        
+        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .stat-box { background: #2d2d2d; padding: 15px; border-radius: 10px; color: white; text-align: center; }
+        .stat-box .label { font-size: 12px; color: #aaa; font-weight: bold; text-transform: uppercase; }
+        .stat-box .valor { font-size: 32px; font-weight: bold; color: #33b5e5; } /* Um tom azul claro para destacar o tempo */
+        .footer { text-align: center; color: #666; margin-top: 20px; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 UPA Transparente - Jandira</h1>
+            <div class="hora" id="horaAtual"></div>
+        </div>
+
+        <nav class="staff-links" aria-label="Acesso e informações">
+            <a href="{{ url_for('operacao_cadastro') }}">Cadastro e triagem da equipe</a>
+            <a href="{{ url_for('operacao_fila') }}">Gerenciar fila da equipe</a>
+            <a href="{{ url_for('creditos') }}" style="background: #e8f4fd; color: #0056b3; border: 1px solid #b3d4ff;">🎓 Créditos do projeto</a>
+        </nav>
+
+        <div class="card-paciente" id="painelPaciente" style="display: none;">
+            <h2 id="pacNome">Olá, Paciente</h2>
+            <div class="info-linha"><strong>Status Atual:</strong> <span id="pacStatus">-</span></div>
+            <div class="info-linha"><strong>Especialidade:</strong> <span id="pacEspecialidade">-</span></div>
+            <div class="info-linha"><strong>Classificação de Risco:</strong> <span id="pacRisco">-</span></div>
+            <div class="info-linha" style="margin-top: 10px;"><strong>Sua Posição no Setor:</strong> <span id="pacPosicao" class="destaque-posicao">-</span></div>
+        </div>
+
+        <div style="color: white; font-size: 16px; margin: 10px 0; text-transform: uppercase; font-weight: bold;">📊 Visão Geral da UPA</div>
+        <div class="grid">
+            <div class="card emergencia"><div class="bolinha-risco bg-emergencia"></div><div class="titulo">EMERGÊNCIA</div><div class="numero" id="qtdEmergencia">0</div><div class="tempo"><span id="tempoEmergencia">0</span> min</div></div>
+            <div class="card muito-urgente"><div class="bolinha-risco bg-muito-urgente"></div><div class="titulo">MUITO URGENTE</div><div class="numero" id="qtdMuitoUrgente">0</div><div class="tempo"><span id="tempoMuitoUrgente">0</span> min</div></div>
+            <div class="card urgente"><div class="bolinha-risco bg-urgente"></div><div class="titulo">URGENTE</div><div class="numero" id="qtdUrgente">0</div><div class="tempo"><span id="tempoUrgente">0</span> min</div></div>
+            <div class="card pouco-urgente"><div class="bolinha-risco bg-pouco-urgente"></div><div class="titulo">POUCO URGENTE</div><div class="numero" id="qtdPoucoUrgente">0</div><div class="tempo"><span id="tempoPoucoUrgente">0</span> min</div></div>
+            <div class="card nao-urgente"><div class="bolinha-risco bg-nao-urgente"></div><div class="titulo">NÃO URGENTE</div><div class="numero" id="qtdNaoUrgente">0</div><div class="tempo"><span id="tempoNaoUrgente">0</span> min</div></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box"><div class="label">TOTAL AGUARDANDO</div><div class="valor" id="totalPessoas">0</div></div>
+            <div class="stat-box">
+                <div class="label" id="labelTempoEstimado">TEMPO ESTIMADO ATÉ O ATENDIMENTO</div>
+                <div class="valor" id="tempoEstimado">0</div>
+                <div class="label">minutos</div>
+            </div>
+        </div>
+
+        <div style="color: white; font-size: 16px; margin: 20px 0 10px; font-weight: bold; text-transform: uppercase;">⏱️ Filas por Setor</div>
+        <div class="setores-grid">
+            <div class="setor-card"><div class="icone">📋</div><div class="setor">RECEPÇÃO</div><div class="qtd" id="qtdRecepcao">0</div><div class="min" id="tempoRecepcao">0 min</div></div>
+            <div class="setor-card"><div class="icone">🏷️</div><div class="setor">CLASSIFICAÇÃO</div><div class="qtd" id="qtdClassificacao">0</div><div class="min" id="tempoClassificacao">0 min</div></div>
+            <div class="setor-card"><div class="icone">👨‍⚕️</div><div class="setor">CLÍNICO</div><div class="qtd" id="qtdClinico">0</div><div class="min" id="tempoClinico">0 min</div></div>
+            <div class="setor-card"><div class="icone">👶</div><div class="setor">PEDIATRA</div><div class="qtd" id="qtdPediatra">0</div><div class="min" id="tempoPediatra">0 min</div></div>
+            <div class="setor-card"><div class="icone">🦴</div><div class="setor">ORTOPEDIA</div><div class="qtd" id="qtdOrtopedia">0</div><div class="min" id="tempoOrtopedia">0 min</div></div>
+            <div class="setor-card"><div class="icone">💊</div><div class="setor">MEDICAÇÃO</div><div class="qtd" id="qtdMedicacao">0</div><div class="min" id="tempoMedicacao">0 min</div></div>
+        </div>
+
+        <div class="footer">
+            Seus dados estão protegidos pela LGPD. Atualização a cada 5 segundos.
+            <div style="margin-top: 10px;">
+                <a href="{{ url_for('creditos') }}" style="display: inline-block; padding: 6px 14px; background: #263345; color: #8ec5fc; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 13px;">🎓 Créditos do Projeto UNIVESP</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const protocolo = urlParams.get('protocolo'); 
+        const apiRoot = {{ request.script_root|tojson }};
+
+        async function fetchDados() {
+            try {
+                const query = protocolo ? `?protocolo=${encodeURIComponent(protocolo)}` : '';
+                const apiUrl = `${apiRoot}/api/dados${query}`;
+                const response = await fetch(apiUrl);
+                const dados = await response.json();
+
+                // 1. ATUALIZA DADOS DO PACIENTE
+                if (dados.paciente) {
+                    document.getElementById('painelPaciente').style.display = 'block';
+                    document.getElementById('pacNome').textContent = "Olá, " + dados.paciente.paciente_nome;
+                    
+                    let statusFormatado = dados.paciente.status_atual.replace('_', ' ').toLowerCase();
+                    statusFormatado = statusFormatado.replace(/\b\w/g, c => c.toUpperCase());
+                    
+                    document.getElementById('pacStatus').textContent = statusFormatado;
+                    document.getElementById('pacEspecialidade').textContent = dados.paciente.especialidade;
+                    document.getElementById('pacRisco').textContent = dados.paciente.classificacao_nome || "Aguardando Triagem";
+                    
+                    if(dados.posicao && dados.total_setor) {
+                        document.getElementById('pacPosicao').textContent = `${dados.posicao} / ${dados.total_setor}`;
+                    } else {
+                        document.getElementById('pacPosicao').textContent = "-";
+                    }
+                }
+
+                // 2. Classificação Geral
+                if (dados.risco) {
+                    document.getElementById('qtdEmergencia').textContent = dados.risco.emergencia.qtd;
+                    document.getElementById('tempoEmergencia').textContent = dados.risco.emergencia.tempo;
+                    document.getElementById('qtdMuitoUrgente').textContent = dados.risco.muitoUrgente.qtd;
+                    document.getElementById('tempoMuitoUrgente').textContent = dados.risco.muitoUrgente.tempo;
+                    document.getElementById('qtdUrgente').textContent = dados.risco.urgente.qtd;
+                    document.getElementById('tempoUrgente').textContent = dados.risco.urgente.tempo;
+                    document.getElementById('qtdPoucoUrgente').textContent = dados.risco.poucoUrgente.qtd;
+                    document.getElementById('tempoPoucoUrgente').textContent = dados.risco.poucoUrgente.tempo;
+                    document.getElementById('qtdNaoUrgente').textContent = dados.risco.naoUrgente.qtd;
+                    document.getElementById('tempoNaoUrgente').textContent = dados.risco.naoUrgente.tempo;
+                }
+                
+                // 3. Atualiza Setores e calcula o Tempo Estimado Dinâmico
+                if (dados.setores) {
+                    document.getElementById('qtdRecepcao').textContent = dados.setores.recepcao.qtd;
+                    document.getElementById('tempoRecepcao').textContent = dados.setores.recepcao.tempo + ' min';
+                    document.getElementById('qtdClassificacao').textContent = dados.setores.classificacao.qtd;
+                    document.getElementById('tempoClassificacao').textContent = dados.setores.classificacao.tempo + ' min';
+                    document.getElementById('qtdClinico').textContent = dados.setores.clinico.qtd;
+                    document.getElementById('tempoClinico').textContent = dados.setores.clinico.tempo + ' min';
+                    document.getElementById('qtdPediatra').textContent = dados.setores.pediatra.qtd;
+                    document.getElementById('tempoPediatra').textContent = dados.setores.pediatra.tempo + ' min';
+                    document.getElementById('qtdOrtopedia').textContent = dados.setores.ortopedia.qtd;
+                    document.getElementById('tempoOrtopedia').textContent = dados.setores.ortopedia.tempo + ' min';
+                    document.getElementById('qtdMedicacao').textContent = dados.setores.medicacao.qtd;
+                    document.getElementById('tempoMedicacao').textContent = dados.setores.medicacao.tempo + ' min';
+                    
+                    // 4. Totais
+                    let total = 0;
+                    for(let r in dados.risco) total += dados.risco[r].qtd;
+                    document.getElementById('totalPessoas').textContent = total;
+                    
+                    // LÓGICA DO TEMPO ESTIMADO INTELIGENTE
+                    let tempoFinalExibir = 0;
+
+                    if (dados.paciente) {
+                        // Se o paciente está logado, pega o tempo exato do setor dele
+                        let statusRaw = dados.paciente.status_atual.toUpperCase();
+                        
+                        if (statusRaw.includes("RECEP")) tempoFinalExibir = dados.setores.recepcao.tempo;
+                        else if (statusRaw.includes("CLASSIF")) tempoFinalExibir = dados.setores.classificacao.tempo;
+                        else if (statusRaw.includes("CLINIC")) tempoFinalExibir = dados.setores.clinico.tempo;
+                        else if (statusRaw.includes("PEDIAT")) tempoFinalExibir = dados.setores.pediatra.tempo;
+                        else if (statusRaw.includes("ORTOP")) tempoFinalExibir = dados.setores.ortopedia.tempo;
+                        else if (statusRaw.includes("MEDIC")) tempoFinalExibir = dados.setores.medicacao.tempo;
+                        else {
+                            // Fallback caso esteja em outro status de transição
+                            let soma = 0, count = 0;
+                            for(let s in dados.setores) { 
+                                if(dados.setores[s].qtd > 0) { soma += dados.setores[s].tempo; count++; }
+                            }
+                            tempoFinalExibir = count > 0 ? Math.round(soma/count) : 0;
+                        }
+                        document.getElementById('labelTempoEstimado').textContent = "SEU TEMPO ESTIMADO ATÉ O ATENDIMENTO";
+                    } else {
+                        // Se for o painel geral, exibe a média geral dos setores ativos
+                        let soma = 0, count = 0;
+                        for(let s in dados.setores) { 
+                            if(dados.setores[s].qtd > 0) { soma += dados.setores[s].tempo; count++; }
+                        }
+                        tempoFinalExibir = count > 0 ? Math.round(soma/count) : 0;
+                        document.getElementById('labelTempoEstimado').textContent = "TEMPO MÉDIO GERAL DE ESPERA";
+                    }
+
+                    document.getElementById('tempoEstimado').textContent = tempoFinalExibir;
+                }
+
+            } catch (error) {
+                console.error("Erro ao buscar dados da UPA:", error);
+            }
+        }
+
+        function atualizarRelogio() {
+            let a = new Date();
+            document.getElementById('horaAtual').textContent = 
+                a.getHours().toString().padStart(2,'0') + ':' + 
+                a.getMinutes().toString().padStart(2,'0') + ':' + 
+                a.getSeconds().toString().padStart(2,'0');
+        }
+
+        setInterval(atualizarRelogio, 1000);
+        setInterval(fetchDados, 5000); 
+        
+        atualizarRelogio();
+        fetchDados();
+    </script>
+</body>
+</html>

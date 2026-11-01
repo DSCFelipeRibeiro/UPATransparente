@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>Créditos do projeto | UPA Transparente</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #eef3f9;
+      color: #172033;
+      font: 16px Arial, sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      padding: 32px 20px;
+      background: #102b4e;
+      color: #fff;
+      text-align: center;
+    }
+    header .institution {
+      margin: 0 0 10px;
+      color: #9ec5f2;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    header h1 {
+      margin: 0;
+      font-size: clamp(26px, 4.5vw, 38px);
+      letter-spacing: -0.02em;
+    }
+    header .project-sub {
+      margin: 8px 0 0;
+      color: #d9e9fb;
+      font-size: 16px;
+    }
+    main {
+      width: min(880px, calc(100% - 32px));
+      margin: 28px auto 44px;
+    }
+    section {
+      margin-bottom: 20px;
+      padding: 24px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(23, 32, 51, 0.06);
+      border: 1px solid #dce5ef;
+    }
+    h2 {
+      margin: 0 0 14px;
+      color: #102b4e;
+      font-size: 19px;
+      border-bottom: 2px solid #eef3f9;
+      padding-bottom: 8px;
+    }
+    p {
+      margin: 0 0 12px;
+      color: #334155;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .meta-item {
+      background: #f8fafc;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border-left: 4px solid #1e5da8;
+    }
+    .meta-item small {
+      display: block;
+      color: #64748b;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 2px;
+    }
+    .meta-item span {
+      font-size: 15px;
+      font-weight: 600;
+      color: #172033;
+    }
+    ul.simple-list {
+      margin: 10px 0;
+      padding-left: 20px;
+      color: #334155;
+    }
+    ul.simple-list li {
+      margin-bottom: 6px;
+    }
+    ul.members-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 24px;
+      margin: 0;
+      padding-left: 20px;
+    }
+    ul.members-grid li {
+      padding: 3px 0;
+      color: #1e293b;
+      font-size: 15px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.15s ease;
+    }
+    .btn-primary {
+      background: #1e5da8;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #164a88;
+    }
+    .btn-secondary {
+      background: #fff;
+      color: #1e5da8;
+      border: 1px solid #1e5da8;
+    }
+    .btn-secondary:hover {
+      background: #eef5fc;
+    }
+    @media (max-width: 600px) {
+      header { padding: 24px 16px; }
+      section { padding: 18px 16px; }
+      ul.members-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="institution">Universidade Virtual do Estado de São Paulo (UNIVESP)</p>
+    <h1>UPA Transparente</h1>
+    <p class="project-sub">Projeto Integrador em Computação (1º semestre de 2026)</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="sobre-projeto">
+      <h2 id="sobre-projeto">Contexto acadêmico</h2>
+      <p>
+        O UPA Transparente foi desenvolvido para a disciplina de Projeto Integrador do Eixo de Computação da UNIVESP no primeiro semestre letivo de 2026. O trabalho reúne estudantes dos cursos de Bacharelado em Tecnologia da Informação (BTI), Bacharelado em Ciência de Dados e Engenharia de Computação vinculados ao Polo Jandira, na Zona Oeste da Região Metropolitana de São Paulo.
+      </p>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <small>Instituição</small>
+          <span>UNIVESP</span>
+        </div>
+        <div class="meta-item">
+          <small>Grande área</small>
+          <span>Eixo de Computação</span>
+        </div>
+        <div class="meta-item">
+          <small>Disciplina</small>
+          <span>Projeto Integrador</span>
+        </div>
+        <div class="meta-item">
+          <small>Período letivo</small>
+          <span>1º semestre de 2026</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="funcionamento-regras">
+      <h2 id="funcionamento-regras">Objetivo e regras do sistema</h2>
+      <p>
+        O sistema organiza e dá visibilidade pública ao fluxo de pacientes da Unidade de Pronto Atendimento de Jandira (UPA Jandira), acompanhando as etapas de acolhimento desde a recepção até a consulta médica e a sala de medicação.
+      </p>
+      <p>
+        A posição na fila é calculada pelo backend em tempo real com base em três critérios sucessivos:
+      </p>
+      <ul class="simple-list">
+        <li>Gravidade clínica avaliada na triagem pelo Protocolo de Manchester (emergência, muito urgente, urgente, pouco urgente e não urgente);</li>
+        <li>Prioridades legais previstas pela legislação brasileira (prioridade especial a partir de 80 anos, idosos a partir de 60 anos, gestantes, lactantes e pessoas com deficiência);</li>
+        <li>Horário de chegada registrado no sistema para desempate entre pacientes com a mesma prioridade clínica e legal.</li>
+      </ul>
+      <p>
+        As contagens por setor e as estimativas de espera são atualizadas dinamicamente a cada 5 segundos no painel coletivo da sala de espera e na tela individual de acompanhamento por protocolo, sem expor dados pessoais protegidos pela legislação de privacidade.
+      </p>
+    </section>
+
+    <section aria-labelledby="equipe-polo">
+      <h2 id="equipe-polo">Equipe e orientação</h2>
+      <div class="meta-grid" style="margin-bottom: 20px;">
+        <div class="meta-item">
+          <small>Facilitadora pedagógica</small>
+          <span>Jessica de Oliveira Fernandes</span>
+        </div>
+        <div class="meta-item">
+          <small>Polo de apoio presencial</small>
+          <span>Polo Jandira (Zona Oeste de São Paulo)</span>
+        </div>
+      </div>
+
+      <p style="font-weight: 600; color: #102b4e; margin-bottom: 10px;">Estudantes responsáveis pelo projeto:</p>
+      <ul class="members-grid">
+        <li>Daniele Hora Nogueira Santos</li>
+        <li>Ednéia Rodrigues de Lima Silva</li>
+        <li>Felipe Alex Ribeiro</li>
+        <li>Jose Valdir Ribeiro</li>
+        <li>Kélli do Prado Fernandes</li>
+        <li>Matheus Pinheiro de Lima Rodrigues</li>
+        <li>Mikael Josias Rodrigues</li>
+        <li>Renan Santos Andrade</li>
+      </ul>
+    </section>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="{{ url_for('index') }}">Voltar ao painel principal</a>
+      <a class="btn btn-secondary" href="{{ url_for('operacao_login') }}">Acessar área da equipe</a>
+    </div>
+  </main>
+</body>
+</html>

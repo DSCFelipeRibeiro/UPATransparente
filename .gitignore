@@ -1,0 +1,29 @@
+# Public repository allowlist: web application source and GitHub workflows only.
+*
+!/.gitignore
+!/README.md
+!/CONTRIBUTING.md
+!/.github/
+!/.github/workflows/
+!/.github/workflows/*.yml
+!/DEV/
+!/DEV/app/
+!/DEV/app/**
+
+# Never publish local configuration, credentials, compiled files, or runtime data.
+**/.env
+**/.env.*
+**/*secret*
+**/*credential*
+**/*.key
+**/*.pem
+**/*.pfx
+**/__pycache__/
+**/*.py[cod]
+**/.venv/
+**/venv/
+**/*.sqlite
+**/*.sqlite3
+**/*.db
+**/uploads/
+**/*.log
