@@ -2,6 +2,10 @@
 
 Aplicação web do projeto integrador da UNIVESP para transparência do fluxo de atendimento em UPAs.
 
+## Apresentação do projeto
+
+[Assista ao vídeo de apresentação do UPA Transparente](https://youtu.be/7hIOg88dh14?is=tiGV1FhJzjUmX6nn).
+
 ## Contexto acadêmico e créditos
 
 Projeto Integrador em Computação do Eixo de Computação da Universidade Virtual do Estado de São Paulo (UNIVESP), no primeiro semestre de 2026, vinculado ao Polo Jandira, na Zona Oeste da Região Metropolitana de São Paulo. O projeto foi desenvolvido por estudantes de Bacharelado em Tecnologia da Informação (BTI), Bacharelado em Ciência de Dados e Engenharia de Computação. É um projeto acadêmico, não um sistema operacional de atendimento médico.
