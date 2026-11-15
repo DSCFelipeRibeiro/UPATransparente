@@ -2,6 +2,10 @@
 
 Aplicação web do projeto integrador da UNIVESP para transparência do fluxo de atendimento em UPAs.
 
+## O projeto
+
+O UPA Transparente apresenta o fluxo de atendimento e estimativas de espera, permite acompanhar o atendimento por protocolo e oferece à equipe ferramentas para registrar e organizar a fila. Foi desenvolvido como projeto didático.
+
 ## Apresentação do projeto
 
 [Assista ao vídeo de apresentação do UPA Transparente](https://youtu.be/7hIOg88dh14?is=tiGV1FhJzjUmX6nn).
