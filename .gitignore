@@ -12,6 +12,7 @@
 !/DEV/mariaDB/
 !/DEV/mariaDB/README.md
 !/DEV/mariaDB/create_tables.sql
+!/DEV/mariaDB/seed_reference_data.sql
 
 # Never publish local configuration, credentials, compiled files, or runtime data.
 **/.env
